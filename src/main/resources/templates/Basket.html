@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jewelry</title>
+</head>
+<body>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<table border="1">
+    <tr>
+        <td>idJewelry</td>
+        <td>Title</td>
+        <td>urlImage</td>
+        <td>Price</td>
+    </tr>
+    <tr th:each="good : ${goods}">
+        <td th:text="${good.getIdJewelry()}"></td>
+        <td th:text="${good.getTitle()}"></td>
+        <td><img th:src="@{/img/{l} (l= ${good.getUrlImage()})}" th:width="250px" th:height="250px"> </td>
+        <td th:text="${good.getPrice()}"></td>
+        <td>
+            <form th:action="@{/booking}" method="post">
+                <input type="hidden" name="jewelryId" th:value="${good.getIdJewelry()}">
+                <input type="hidden" name="idBooking" th:value="${bookingId}">
+                <input type="submit" value="buy">
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

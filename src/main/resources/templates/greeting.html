@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jewelry</title>
+</head>
+<body>
+GREETING PAGE
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+<form th:action="@{/log}">
+    <input type="submit" value="log in">
+</form>
+<form th:action="@{/myBasket}">
+    <input type="submit" value="Basket">
+</form>
+
+<form action="/registration" method="GET">
+    <input type="button" value="Registration" onClick='location.href="/registration"'>
+</form>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <input type="button" value="Administration" onClick='location.href="/admin"'>
+</div>
+
+<div>
+    Filter by category
+    <form th:action="@{/filter}" method="GET">
+        <input type="submit" name="filter" value="show all">
+        <input type="submit" name="filter" value="rings">
+        <input type="submit" name="filter" value="earrings">
+        <input type="submit" name="filter" value="necklace">
+    </form>
+</div>
+
+<table border="1">
+    <tr>
+        <td>idJewelry</td>
+        <td>Title</td>
+        <td>urlImage</td>
+        <td>Price</td>
+    </tr>
+    <tr th:each="thing : ${goods}">
+        <td th:text="${thing.getIdJewelry()}"></td>
+        <td th:text="${thing.getTitle()}"></td>
+        <td > <img th:src="@{/img/{l} (l= ${thing.getUrlImage()})}" th:width="250px" th:height="250px"> </td>
+        <td th:text="${thing.getPrice()}"></td>
+        <td>
+            <div sec:authorize="not isAuthenticated()">
+                <form th:action="@{/log}">
+                    <input type="submit" value="log in">
+                </form>
+
+            </div>
+            <div sec:authorize="hasRole('ROLE_USER')">
+            <form action="/addBasket" method="GET">
+                <input type="hidden" name="jewelryId" th:value="${thing.getIdJewelry()}">
+                <input type="submit" value="add to cart">
+            </form>
+            </div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <form action="/editJewelry" method="GET">
+                    <input type="hidden" name="jewelryId" th:value="${thing.getIdJewelry()}">
+                    <input type="submit" value="add to cart">
+                </form>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

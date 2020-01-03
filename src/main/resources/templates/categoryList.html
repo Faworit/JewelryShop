@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jewelry</title>
+</head>
+<body>
+<form th:action="@{/addCategory}" method="POST">
+    <input type="text" name="nameCategory" placeholder="title">
+    <input type="submit" value="add">
+
+</form>
+<table border="1">
+    <tr>
+        <td>category id</td>
+        <td>title</td>
+    </tr>
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.getId()}"></td>
+        <td th:text="${category.getTitle()}"></td>
+        <td>
+            <a href="editCategory.html" th:href="@{/editCategory/{orderId} (orderId=${category.getId()})}">edit</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jewelry</title>
+</head>
+<body>
+
+<form th:action="@{/userList}" method="GET">
+    <input type="button" value="show all users" onClick='location.href="/userList"'>
+</form>
+<form th:action="@{/addJewelryForm}" method="GET">
+    <input type="button" value="add new Jewelry" onClick='location.href="/addJewelryForm"'>
+</form>
+<form th:action="@{/categoryList}" method="GET">
+    <input type="submit" value="edit categories">
+</form>
+
+</body>
+</html>
